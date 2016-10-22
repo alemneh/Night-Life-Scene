@@ -1,8 +1,8 @@
 'use strict';
 var mongoose = require('mongoose');
-var env = process.env.NODE_ENV || 'devlopment';
-var CONFIG = require(__dirname +'/../config/config.json')[env];
-
+var env = process.env.NODE_ENV || 'development';
+var CONFIG = require('../config/config.json')[env];
+console.log(CONFIG);
 mongoose.connect(process.env[CONFIG.database] || CONFIG.database);
 const models = {};
 

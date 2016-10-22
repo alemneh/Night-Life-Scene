@@ -8,10 +8,11 @@ const env = process.env.NODE_ENV || 'devlopment';
 const CONFIG = require('./config/config.json')[env];
 const port = process.env.PORT || CONFIG.port || 3000;
 const url = process.env.URL || CONFIG.host || 'http://localhost:3000';
+const yelpSearch = require('./lib/yelp');
 
 
 
-require('./routes/users-routes')(userRouter, models);
+require('./routes/user-routes')(userRouter, models);
 
 
 app.use(express.static(__dirname + '/build'));
@@ -25,7 +26,12 @@ app.use((req, res, next) => {
   res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
   next();
 });
-
+app.get('/', (req, res) => {
+  yelpSearch(req.parameters, (error, response, body) => {
+    console.log(response);
+    console.log(body);
+  });
+})
 
 app.use('/', userRouter);
 

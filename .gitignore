@@ -6,6 +6,7 @@ npm-debug.log*
 server.crt
 server.csr
 server.key
+env
 
 # Runtime data
 pids
