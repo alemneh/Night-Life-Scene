@@ -3,11 +3,11 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 module.exports = function(mongoose, models) {
-  var Schema = mongoose.Schema;
+  let Schema = mongoose.Schema;
   const userSchema = new mongoose.Schema({
     name: String,
     password: String,
-    polls: [{ type: Schema.Types.ObjectId, ref:'Poll'}],
+    placesAttending: [{ type: Schema.Types.ObjectId, ref:'Booking'}],
     hookEnabled: {
       type: Boolean,
       require: false,

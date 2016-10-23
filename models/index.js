@@ -7,6 +7,7 @@ mongoose.connect(process.env[CONFIG.database] || CONFIG.database);
 const models = {};
 
 require('./user')(mongoose, models);
+require('./booking')(mongoose, models);
 
 
 module.exports = models;

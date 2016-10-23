@@ -22,7 +22,9 @@ module.exports = (set_parameters, callback) => {
   /* We can setup default parameters here */
   var default_parameters = {
     location: 'San+Francisco',
-    sort: '2'
+    sort: '0',
+    limit: '1',
+    term: 'bar'
   };
 
   /* We set the require parameters here */
