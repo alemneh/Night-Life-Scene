@@ -11,7 +11,6 @@ const env           = process.env.NODE_ENV || 'devlopment';
 const CONFIG        = require('./config/config.json')[env];
 const port          = process.env.PORT || CONFIG.port || 3000;
 const url           = process.env.URL || CONFIG.host || 'http://localhost:3000';
-const yelpSearch    = require('./controllers/yelp-controller');
 
 
 
@@ -32,15 +31,7 @@ app.use((req, res, next) => {
   res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
   next();
 });
-app.post('/', (req, res) => {
-  console.log(req.body);
-  yelpSearch(req.body, (error, response, body) => {
-    body = JSON.parse(body);
-    res.status(200).json({
-      businesses: body.businesses
-    });
-  });
-});
+
 
 app.use('/', userRouter, bookingRouter, loginRouter, yelpRouter);
 
