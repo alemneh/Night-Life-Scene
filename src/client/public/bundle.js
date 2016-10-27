@@ -52,7 +52,7 @@
 
 	var _reactDom = __webpack_require__(34);
 
-	var _App = __webpack_require__(174);
+	var _App = __webpack_require__(172);
 
 	var _App2 = _interopRequireDefault(_App);
 
@@ -21428,9 +21428,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 172 */,
-/* 173 */,
-/* 174 */
+/* 172 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -21445,11 +21443,11 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _NavBarComponent = __webpack_require__(175);
+	var _NavBarComponent = __webpack_require__(173);
 
 	var _NavBarComponent2 = _interopRequireDefault(_NavBarComponent);
 
-	var _SearchListComponent = __webpack_require__(176);
+	var _SearchListComponent = __webpack_require__(175);
 
 	var _SearchListComponent2 = _interopRequireDefault(_SearchListComponent);
 
@@ -21488,10 +21486,10 @@
 	exports.default = App;
 
 /***/ },
-/* 175 */
+/* 173 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -21502,6 +21500,10 @@
 	var _react = __webpack_require__(1);
 
 	var _react2 = _interopRequireDefault(_react);
+
+	var _styles = __webpack_require__(174);
+
+	var _styles2 = _interopRequireDefault(_styles);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -21521,51 +21523,51 @@
 	  }
 
 	  _createClass(NavBarComponent, [{
-	    key: "render",
+	    key: 'render',
 	    value: function render() {
 	      return _react2.default.createElement(
-	        "nav",
-	        { className: "navbar navbar-inverse" },
+	        'nav',
+	        { className: 'navbar navbar-inverse' },
 	        _react2.default.createElement(
-	          "div",
-	          { className: "container-fluid" },
+	          'div',
+	          { className: 'container-fluid' },
 	          _react2.default.createElement(
-	            "div",
-	            { className: "navbar-header" },
+	            'div',
+	            { className: 'navbar-header' },
 	            _react2.default.createElement(
-	              "button",
-	              { type: "button", className: "navbar-toggle collapsed", "data-toggle": "collapse", "data-target": "#bs-example-navbar-collapse-2", "aria-expanded": "false" },
+	              'button',
+	              { type: 'button', className: 'navbar-toggle collapsed', 'data-toggle': 'collapse', 'data-target': '#bs-example-navbar-collapse-2', 'aria-expanded': 'false' },
 	              _react2.default.createElement(
-	                "span",
-	                { className: "sr-only" },
-	                "Toggle navigation"
+	                'span',
+	                { className: 'sr-only' },
+	                'Toggle navigation'
 	              ),
-	              _react2.default.createElement("span", { className: "icon-bar" }),
-	              _react2.default.createElement("span", { className: "icon-bar" }),
-	              _react2.default.createElement("span", { className: "icon-bar" })
+	              _react2.default.createElement('span', { className: 'icon-bar' }),
+	              _react2.default.createElement('span', { className: 'icon-bar' }),
+	              _react2.default.createElement('span', { className: 'icon-bar' })
 	            ),
 	            _react2.default.createElement(
-	              "a",
-	              { className: "navbar-brand", href: "#" },
-	              "Bar Hop"
+	              'a',
+	              { className: 'navbar-brand', href: '#' },
+	              'Bar Hop'
 	            )
 	          ),
 	          _react2.default.createElement(
-	            "div",
-	            { className: "navbar-collapse collapse", id: "bs-example-navbar-collapse-2", "aria-expanded": "false", styles: { height: '1px' } },
+	            'div',
+	            { className: 'navbar-collapse collapse', id: 'bs-example-navbar-collapse-2', 'aria-expanded': 'false' },
 	            _react2.default.createElement(
-	              "form",
-	              { className: "navbar-form navbar-right", role: "search" },
+	              'form',
+	              { className: 'navbar-form navbar-right', role: 'search' },
 	              _react2.default.createElement(
-	                "div",
-	                { className: "form-group" },
-	                _react2.default.createElement("input", { type: "text", className: "form-control", placeholder: "Username" }),
-	                _react2.default.createElement("input", { type: "text", className: "form-control", placeholder: "Password" })
+	                'div',
+	                { className: 'form-group' },
+	                _react2.default.createElement('input', { style: _styles2.default.input, type: 'text', className: 'form-control', placeholder: 'Username' }),
+	                _react2.default.createElement('input', { style: _styles2.default.input, type: 'text', className: 'form-control', placeholder: 'Password' })
 	              ),
 	              _react2.default.createElement(
-	                "button",
-	                { type: "submit", className: "btn btn-default" },
-	                "Login"
+	                'button',
+	                { type: 'submit', className: 'btn btn-default' },
+	                'Login'
 	              )
 	            )
 	          )
@@ -21578,6 +21580,163 @@
 	}(_react.Component);
 
 	exports.default = NavBarComponent;
+
+/***/ },
+/* 174 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	var styles = {
+	  input: {
+	    marginRight: '15px'
+	  }
+	};
+
+	exports.default = styles;
+
+/***/ },
+/* 175 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _ListItemComponent = __webpack_require__(176);
+
+	var _ListItemComponent2 = _interopRequireDefault(_ListItemComponent);
+
+	var _styles = __webpack_require__(178);
+
+	var _styles2 = _interopRequireDefault(_styles);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var SearchListComponent = function (_Component) {
+	  _inherits(SearchListComponent, _Component);
+
+	  function SearchListComponent(props) {
+	    _classCallCheck(this, SearchListComponent);
+
+	    var _this = _possibleConstructorReturn(this, (SearchListComponent.__proto__ || Object.getPrototypeOf(SearchListComponent)).call(this, props));
+
+	    _this.state = {
+	      businesses: [],
+	      receivedBussiness: false,
+	      searchLoading: false,
+	      bookings: []
+	    };
+
+	    return _this;
+	  }
+
+	  _createClass(SearchListComponent, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      this.getBizsWithBookings();
+	    }
+	  }, {
+	    key: 'getBizsWithBookings',
+	    value: function getBizsWithBookings() {
+	      var _this2 = this;
+
+	      axios.get('http://localhost:3000/bookings').then(function (data) {
+	        _this2.setState({ bookings: data.data.bookings });
+	      }).catch(function (err) {
+	        console.log(err);
+	      });
+	    }
+	  }, {
+	    key: 'renderListItems',
+	    value: function renderListItems() {
+	      var _this3 = this;
+
+	      var businesses = this.state.businesses;
+
+	      if (businesses.length == 0) {
+	        return _react2.default.createElement(
+	          'h2',
+	          null,
+	          'No Results.'
+	        );
+	      } else {
+	        return businesses.map(function (bar, index) {
+	          return _react2.default.createElement(_ListItemComponent2.default, _extends({}, bar, { key: index,
+	            bookings: _this3.state.bookings }));
+	        });
+	      }
+	    }
+	  }, {
+	    key: 'searchBars',
+	    value: function searchBars() {
+	      var _this4 = this;
+
+	      axios.post('http://localhost:3000/yelp-search', {
+	        location: this.refs.searchInput.value
+	      }).then(function (data) {
+	        var businesses = data.data.businesses;
+	        _this4.setState({ businesses: data.data.businesses });
+	      }).catch(function (err) {
+	        console.log(err);
+	      });
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'row' },
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'col-md-10 col-sm-10' },
+	            _react2.default.createElement('input', { ref: 'searchInput', style: _styles2.default.input, className: 'form-control input-lg', type: 'text', placeholder: 'search your city...' })
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'col-md-2 col-sm-2' },
+	            _react2.default.createElement(
+	              'button',
+	              { style: _styles2.default.button, onClick: this.searchBars.bind(this) },
+	              'Search'
+	            )
+	          )
+	        ),
+	        _react2.default.createElement(
+	          'ul',
+	          { style: _styles2.default.ul },
+	          this.renderListItems()
+	        )
+	      );
+	    }
+	  }]);
+
+	  return SearchListComponent;
+	}(_react.Component);
+
+	exports.default = SearchListComponent;
 
 /***/ },
 /* 176 */
@@ -21595,63 +21754,9 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _ListItemComponent = __webpack_require__(177);
+	var _styles = __webpack_require__(177);
 
-	var _ListItemComponent2 = _interopRequireDefault(_ListItemComponent);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var SearchListComponent = function (_Component) {
-	  _inherits(SearchListComponent, _Component);
-
-	  function SearchListComponent() {
-	    _classCallCheck(this, SearchListComponent);
-
-	    return _possibleConstructorReturn(this, (SearchListComponent.__proto__ || Object.getPrototypeOf(SearchListComponent)).apply(this, arguments));
-	  }
-
-	  _createClass(SearchListComponent, [{
-	    key: 'render',
-	    value: function render() {
-	      return _react2.default.createElement(
-	        'div',
-	        null,
-	        _react2.default.createElement('input', { className: 'form-control input-lg', type: 'text', placeholder: 'search your city...' }),
-	        _react2.default.createElement(
-	          'ul',
-	          null,
-	          _react2.default.createElement(_ListItemComponent2.default, null)
-	        )
-	      );
-	    }
-	  }]);
-
-	  return SearchListComponent;
-	}(_react.Component);
-
-	exports.default = SearchListComponent;
-
-/***/ },
-/* 177 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
+	var _styles2 = _interopRequireDefault(_styles);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -21664,40 +21769,114 @@
 	var ListItemComponent = function (_Component) {
 	  _inherits(ListItemComponent, _Component);
 
-	  function ListItemComponent() {
+	  function ListItemComponent(props) {
 	    _classCallCheck(this, ListItemComponent);
 
-	    return _possibleConstructorReturn(this, (ListItemComponent.__proto__ || Object.getPrototypeOf(ListItemComponent)).apply(this, arguments));
+	    var _this = _possibleConstructorReturn(this, (ListItemComponent.__proto__ || Object.getPrototypeOf(ListItemComponent)).call(this, props));
+
+	    _this.state = {
+	      going: 0,
+	      isBooked: false
+	    };
+	    return _this;
 	  }
 
 	  _createClass(ListItemComponent, [{
-	    key: "render",
+	    key: 'toggleBooking',
+	    value: function toggleBooking() {
+	      this.setState(function (prev, props) {
+	        return { isBooked: !prev.isBooked };
+	      });
+	    }
+	  }, {
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      this.howManyAttendees();
+	    }
+	  }, {
+	    key: 'howManyAttendees',
+	    value: function howManyAttendees() {
+	      var _this2 = this;
+
+	      var bookings = this.props.bookings;
+	      var company = bookings.filter(function (booking) {
+	        return booking.company == _this2.props.name;
+	      });
+	      if (company.length == 0) {
+	        return;
+	      } else {
+	        if (company[0].attendees.indexOf('580dd7a53d246ba866604ddb') != -1) {
+	          this.toggleBooking();
+	        }
+	        this.setState({ going: company[0].attendees.length });
+	      }
+	    }
+	  }, {
+	    key: 'makeABooking',
+	    value: function makeABooking() {
+	      var _this3 = this;
+
+	      axios.post('http://localhost:3000/users/580dd7a53d246ba866604ddb/bookings', {
+	        company: this.props.name
+	      }).then(function (data) {
+	        console.log(data.data.message);
+	        if (data.data.message != 'already attending!') {
+	          _this3.setState(function (prev, props) {
+	            return { going: prev.going + 1 };
+	          });
+	        }
+	        _this3.toggleBooking();
+	      }).catch(function (err) {
+	        console.log(err);
+	      });
+	    }
+	  }, {
+	    key: 'unDoABooking',
+	    value: function unDoABooking() {
+	      var _this4 = this;
+
+	      axios.delete('http://localhost:3000/users/580dd7a53d246ba866604ddb/bookings/' + this.props.name).then(function (data) {
+	        console.log(data.data.message);
+	        if (data.data.message != 'not attending!') {
+	          _this4.setState(function (prev, props) {
+	            return { going: prev.going - 1 };
+	          });
+	        }
+	        _this4.toggleBooking();
+	      }).catch(function (err) {
+	        console.log(err);
+	      });
+	    }
+	  }, {
+	    key: 'render',
 	    value: function render() {
 	      return _react2.default.createElement(
-	        "li",
-	        { className: "row" },
+	        'li',
+	        { style: _styles2.default.li, className: 'row' },
 	        _react2.default.createElement(
-	          "div",
-	          { className: "col-md-2" },
-	          _react2.default.createElement("img", { src: "https://s3-media2.fl.yelpcdn.com/bphoto/m4hfcLhvJbEGdbgI3DhvqA/ms.jpg" })
+	          'div',
+	          { className: 'col-md-2' },
+	          _react2.default.createElement('img', { style: _styles2.default.img, src: this.props.image_url })
 	        ),
 	        _react2.default.createElement(
-	          "div",
-	          { className: "col-md-10" },
+	          'div',
+	          { className: 'col-md-10' },
 	          _react2.default.createElement(
-	            "h3",
+	            'h3',
 	            null,
-	            "Some Random Bar"
+	            this.props.name
 	          ),
 	          _react2.default.createElement(
-	            "button",
-	            null,
-	            "0 Going"
+	            'button',
+	            { onClick: this.state.isBooked ? this.unDoABooking.bind(this) : this.makeABooking.bind(this)
+	            },
+	            this.state.going,
+	            ' Going'
 	          ),
 	          _react2.default.createElement(
-	            "p",
+	            'p',
 	            null,
-	            "\"We were a group of 3 couples who came to Seattle for a mini vacation and I must say this place lives up to all the incredible reviews. I was impressed how...\""
+	            this.props.snippet_text
 	          )
 	        )
 	      );
@@ -21708,6 +21887,59 @@
 	}(_react.Component);
 
 	exports.default = ListItemComponent;
+
+/***/ },
+/* 177 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	var styles = {
+	  img: {
+	    width: '120px',
+	    height: '120px',
+	    borderRadius: '5%'
+	  },
+	  li: {
+	    margin: '10px 0',
+	    padding: '0'
+	  }
+
+	};
+
+	exports.default = styles;
+
+/***/ },
+/* 178 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	var styles = {
+	  ul: {
+	    listStyleType: 'none',
+	    margin: '8px 0',
+	    padding: '0'
+	  },
+	  button: {
+	    height: '53px',
+	    margin: '0',
+	    padding: '0',
+	    width: '100%'
+	  },
+	  input: {
+	    margin: '0',
+	    padding: '0'
+	  }
+	};
+
+	exports.default = styles;
 
 /***/ }
 /******/ ]);

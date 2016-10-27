@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import styles from './styles';
 
 class NavBarComponent extends Component {
 
@@ -16,11 +17,11 @@ class NavBarComponent extends Component {
             <a className="navbar-brand" href="#">Bar Hop</a>
           </div>
 
-          <div className="navbar-collapse collapse" id="bs-example-navbar-collapse-2" aria-expanded="false" styles={{height: '1px'}}>
+          <div className="navbar-collapse collapse" id="bs-example-navbar-collapse-2" aria-expanded="false">
             <form className="navbar-form navbar-right" role="search">
               <div className="form-group">
-                <input type="text" className="form-control" placeholder="Username" />
-                <input type="text" className="form-control" placeholder="Password" />
+                <input style={styles.input} type="text" className="form-control" placeholder="Username" />
+                <input style={styles.input} type="text" className="form-control" placeholder="Password" />
               </div>
               <button type="submit" className="btn btn-default">Login</button>
             </form>

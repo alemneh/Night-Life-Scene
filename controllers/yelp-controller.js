@@ -23,7 +23,7 @@ module.exports = (set_parameters, callback) => {
   var default_parameters = {
     location: 'San+Francisco',
     sort: '0',
-    limit: '1',
+    limit: '15',
     term: 'bar'
   };
 

@@ -97,16 +97,28 @@ let UserController = {
   },
 
   delete_a_booking: function(req, res) {
-    Booking.findOneAndUpdate({company: req.params.company}, {$pull: {attendees: req.params.id}}).exec()
+    const userId = req.params.id;
+    Booking.findOne({company: req.params.company}).exec()
 
     .then((booking) => {
-      return User.findByIdAndUpdate(req.params.id, {$pull: {placesAttending: booking._id}}).exec();
+      if(booking.attendees.indexOf(userId) == -1 || !booking) {
+        res.json({message: 'not attending!'});
+        console.log('aborted promise');
+        throw new Error('not attending!');
+      }
+      booking.attendees.pull(userId);
+      booking.save();
+      return User.findByIdAndUpdate(userId, {$pull: {placesAttending: booking._id}}).exec();
     })
     .then((user) => {
       res.json({message: 'Unbooked booking!'});
     })
     .catch((err) => {
-      throw err;
+      if(err.message == 'not attending!') {
+
+      } else {
+        throw err;
+      }
     });
   }
 
