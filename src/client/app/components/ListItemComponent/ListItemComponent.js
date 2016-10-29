@@ -8,7 +8,10 @@ class ListItemComponent extends Component {
 
     this.state = {
       going: 0,
-      isBooked: false
+      isBooked: false,
+      token: localStorage.token,
+      error: null,
+      user: localStorage.user || ''
     }
   }
 
@@ -22,7 +25,22 @@ class ListItemComponent extends Component {
     this.howManyAttendees();
   }
 
+  renderError() {
+    if(!this.state.error) { return null }
+
+    window.setTimeout(() => {
+      this.setState({ error: null});
+    }, 2000)
+
+    return <div className="alert alert-dismissible alert-danger">
+             <button type="button" className="close" data-dismiss="alert">&times;</button>
+             {this.state.error}
+           </div>
+  }
+
   howManyAttendees() {
+    let user = JSON.parse(this.state.user);
+    let userId = user._id;
     let bookings = this.props.bookings;
     let company  = bookings.filter((booking) => {
       return booking.company == this.props.name;
@@ -30,7 +48,7 @@ class ListItemComponent extends Component {
     if(company.length == 0) {
       return;
     } else {
-      if(company[0].attendees.indexOf('580dd7a53d246ba866604ddb') != -1) {
+      if(company[0].attendees.indexOf(userId) != -1) {
         this.toggleBooking();
       }
       this.setState({going: company[0].attendees.length});
@@ -38,11 +56,14 @@ class ListItemComponent extends Component {
   }
 
   makeABooking() {
-    axios.post('http://localhost:3000/users/580dd7a53d246ba866604ddb/bookings', {
-      company: this.props.name
-    })
+    let user = JSON.parse(this.state.user);
+    let userId = user._id;
+    axios.post('http://localhost:3000/users/'+ userId +'/bookings',
+    { company: this.props.name },
+    { headers: {'token': this.state.token || localStorage.token }})
     .then((data) => {
       console.log(data.data.message);
+      console.log(this.state.token);
       if(data.data.message != 'already attending!') {
         this.setState((prev, props) => {
           return { going: prev.going + 1 };
@@ -52,13 +73,18 @@ class ListItemComponent extends Component {
     })
     .catch((err) => {
       console.log(err);
+      if(!this.state.token) {
+        this.setState({ error: 'You must login!'});
+      }
     })
   }
 
   unDoABooking() {
-    axios.delete('http://localhost:3000/users/580dd7a53d246ba866604ddb/bookings/'
-          + this.props.name
-    )
+    let user = JSON.parse(this.state.user);
+    let userId = user._id;
+    axios.delete('http://localhost:3000/users/'+ userId +'/bookings/'
+          + this.props.name,
+    { headers: {'token': this.state.token || localStorage.token }})
     .then((data) => {
       console.log(data.data.message);
       if(data.data.message != 'not attending!') {
@@ -70,25 +96,30 @@ class ListItemComponent extends Component {
     })
     .catch((err) => {
       console.log(err);
+      if(!this.state.token) {
+        this.setState({ error: 'You must login!'});
+      }
     })
   }
 
   render() {
     return (
       <li style={styles.li} className="row">
+        { this.renderError() }
         <div className="col-md-2">
           <img style={styles.img} src={this.props.image_url}/>
         </div>
         <div className="col-md-10">
           <h3>{this.props.name}</h3>
-          <button onClick={ this.state.isBooked ? this.unDoABooking.bind(this) :
-                            this.makeABooking.bind(this)  }
-                  >{ this.state.going } Going</button>
+          <button className="btn btn-primary btn-xs" onClick={ this.state.isBooked ? this.unDoABooking.bind(this) :
+                            this.makeABooking.bind(this)  }>
+          <span className="badge">{ this.state.going }</span> Going</button>
           <p>{this.props.snippet_text}</p>
         </div>
       </li>
     )
   }
+
 }
 
 export default ListItemComponent;

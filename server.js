@@ -20,7 +20,7 @@ require('./routes/yelp-routes')(yelpRouter, models);
 require('./routes/login-routes')(loginRouter, models);
 
 
-app.use(express.static(__dirname + '/build'));
+app.use(express.static(__dirname + '/src/client'));
 
 app.use(bodyParser.urlencoded({ extended: true}));
 app.use(bodyParser.json());

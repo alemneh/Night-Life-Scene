@@ -1,5 +1,5 @@
 'use strict';
-
+const jwtAuth = require('../lib/auth.js');
 const models = require('../models');
 
 const Booking = models.Booking;
@@ -13,6 +13,7 @@ let UserController = {
       if(!user) {
         var newUser = new User(req.body);
         newUser.save((err, user) => {
+          console.log(user);
           res.json({
             data: user,
             token: user.generateToken()
@@ -82,6 +83,7 @@ let UserController = {
     })
     .then((user) => {
       user.placesAttending.push(bookingCopy._id);
+      user.hookEnabled = false;
       return user.save();
     })
     .then((user) => {

@@ -21447,7 +21447,7 @@
 
 	var _NavBarComponent2 = _interopRequireDefault(_NavBarComponent);
 
-	var _SearchListComponent = __webpack_require__(174);
+	var _SearchListComponent = __webpack_require__(175);
 
 	var _SearchListComponent2 = _interopRequireDefault(_SearchListComponent);
 
@@ -21495,13 +21495,15 @@
 	  value: true
 	});
 
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	var _react = __webpack_require__(1);
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _styles = __webpack_require__(178);
+	var _styles = __webpack_require__(174);
 
 	var _styles2 = _interopRequireDefault(_styles);
 
@@ -21524,20 +21526,28 @@
 	    _this.state = {
 	      isLoggedIn: false,
 	      error: null,
-	      token: localStorage.token || ''
+	      token: localStorage.token || '',
+	      user: localStorage.user || ''
 	    };
 	    _this.handleUsernameChange = _this.handleUsernameChange.bind(_this);
 	    _this.handlePasswordChange = _this.handlePasswordChange.bind(_this);
 	    _this.handleLogin = _this.handleLogin.bind(_this);
+	    _this.handelelogOut = _this.handelelogOut.bind(_this);
 	    return _this;
 	  }
 
 	  _createClass(NavBarComponent, [{
 	    key: 'renderError',
 	    value: function renderError() {
+	      var _this2 = this;
+
 	      if (!this.state.error) {
 	        return null;
 	      }
+
+	      window.setTimeout(function () {
+	        _this2.setState({ error: null });
+	      }, 2000);
 
 	      return _react2.default.createElement(
 	        'div',
@@ -21561,11 +21571,54 @@
 	      this.setState({ password: e.target.value });
 	    }
 	  }, {
+	    key: 'renderNavBarState',
+	    value: function renderNavBarState() {
+
+	      if (this.state.token) {
+	        var user = JSON.parse(this.state.user);
+	        console.log(user);
+	        return _react2.default.createElement(
+	          'form',
+	          { className: 'navbar-form navbar-right', role: 'search' },
+	          _react2.default.createElement(
+	            'div',
+	            { style: { color: 'white' }, className: 'form-group' },
+	            'Welcome, ',
+	            user.name
+	          ),
+	          _react2.default.createElement(
+	            'a',
+	            { onClick: this.handelelogOut, href: '/', className: 'btn btn-link' },
+	            'Logout'
+	          )
+	        );
+	      } else {
+	        return _react2.default.createElement(
+	          'form',
+	          { onSubmit: this.handleLogin, className: 'navbar-form navbar-right', role: 'search' },
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'form-group' },
+	            _react2.default.createElement('input', { style: _styles2.default.input, type: 'text', className: 'form-control',
+	              placeholder: 'Username', onChange: this.handleUsernameChange }),
+	            _react2.default.createElement('input', { style: _styles2.default.input, type: 'password', className: 'form-control',
+	              placeholder: 'Password', onChange: this.handlePasswordChange })
+	          ),
+	          _react2.default.createElement(
+	            'button',
+	            { type: 'submit', className: 'btn btn-default' },
+	            'Login'
+	          )
+	        );
+	      }
+	    }
+	  }, {
 	    key: '_logIn',
 	    value: function _logIn(username, password) {
-	      var _this2 = this;
+	      var _this3 = this;
 
-	      var token = void 0;
+	      var token = void 0,
+	          user = void 0;
 	      axios.get('http://localhost:3000/login', {
 	        auth: {
 	          username: username,
@@ -21573,16 +21626,26 @@
 	        }
 	      }).then(function (response) {
 	        token = response.data.token;
+	        user = JSON.stringify(response.data.data);
 	        if (response.data.status == 'failure') {
 	          localStorage.removeItem('token');
-	          _this2.setState({ error: response.data.message });
+	          _this3.setState({ error: response.data.message });
 	        } else {
 	          localStorage.token = token;
-	          _this2.setState({ token: token, error: null });
+	          localStorage.user = user;
+	          console.log(typeof user === 'undefined' ? 'undefined' : _typeof(user));
+	          _this3.setState({ token: token, user: user, error: null });
 	        }
 	      }).catch(function (err) {
 	        console.log(err);
 	      });
+	    }
+	  }, {
+	    key: 'handelelogOut',
+	    value: function handelelogOut(e) {
+	      e.preventDefault();
+	      localStorage.removeItem('token');
+	      this.setState({ token: '' });
 	    }
 	  }, {
 	    key: 'handleLogin',
@@ -21638,23 +21701,7 @@
 	              'div',
 	              { className: 'navbar-collapse collapse', id: 'bs-example-navbar-collapse-2',
 	                'aria-expanded': 'false' },
-	              _react2.default.createElement(
-	                'form',
-	                { onSubmit: this.handleLogin, className: 'navbar-form navbar-right', role: 'search' },
-	                _react2.default.createElement(
-	                  'div',
-	                  { className: 'form-group' },
-	                  _react2.default.createElement('input', { style: _styles2.default.input, type: 'text', className: 'form-control',
-	                    placeholder: 'Username', onChange: this.handleUsernameChange }),
-	                  _react2.default.createElement('input', { style: _styles2.default.input, type: 'password', className: 'form-control',
-	                    placeholder: 'Password', onChange: this.handlePasswordChange })
-	                ),
-	                _react2.default.createElement(
-	                  'button',
-	                  { type: 'submit', className: 'btn btn-default' },
-	                  'Login'
-	                )
-	              )
+	              this.renderNavBarState()
 	            )
 	          )
 	        ),
@@ -21681,6 +21728,23 @@
 
 /***/ },
 /* 174 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	var styles = {
+	  input: {
+	    marginRight: '15px'
+	  }
+	};
+
+	exports.default = styles;
+
+/***/ },
+/* 175 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -21697,11 +21761,11 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _ListItemComponent = __webpack_require__(175);
+	var _ListItemComponent = __webpack_require__(176);
 
 	var _ListItemComponent2 = _interopRequireDefault(_ListItemComponent);
 
-	var _styles = __webpack_require__(177);
+	var _styles = __webpack_require__(178);
 
 	var _styles2 = _interopRequireDefault(_styles);
 
@@ -21820,7 +21884,7 @@
 	exports.default = SearchListComponent;
 
 /***/ },
-/* 175 */
+/* 176 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -21835,7 +21899,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _styles = __webpack_require__(176);
+	var _styles = __webpack_require__(177);
 
 	var _styles2 = _interopRequireDefault(_styles);
 
@@ -21857,7 +21921,10 @@
 
 	    _this.state = {
 	      going: 0,
-	      isBooked: false
+	      isBooked: false,
+	      token: localStorage.token,
+	      error: null,
+	      user: localStorage.user || ''
 	    };
 	    return _this;
 	  }
@@ -21875,18 +21942,44 @@
 	      this.howManyAttendees();
 	    }
 	  }, {
-	    key: 'howManyAttendees',
-	    value: function howManyAttendees() {
+	    key: 'renderError',
+	    value: function renderError() {
 	      var _this2 = this;
 
+	      if (!this.state.error) {
+	        return null;
+	      }
+
+	      window.setTimeout(function () {
+	        _this2.setState({ error: null });
+	      }, 2000);
+
+	      return _react2.default.createElement(
+	        'div',
+	        { className: 'alert alert-dismissible alert-danger' },
+	        _react2.default.createElement(
+	          'button',
+	          { type: 'button', className: 'close', 'data-dismiss': 'alert' },
+	          '\xD7'
+	        ),
+	        this.state.error
+	      );
+	    }
+	  }, {
+	    key: 'howManyAttendees',
+	    value: function howManyAttendees() {
+	      var _this3 = this;
+
+	      var user = JSON.parse(this.state.user);
+	      var userId = user._id;
 	      var bookings = this.props.bookings;
 	      var company = bookings.filter(function (booking) {
-	        return booking.company == _this2.props.name;
+	        return booking.company == _this3.props.name;
 	      });
 	      if (company.length == 0) {
 	        return;
 	      } else {
-	        if (company[0].attendees.indexOf('580dd7a53d246ba866604ddb') != -1) {
+	        if (company[0].attendees.indexOf(userId) != -1) {
 	          this.toggleBooking();
 	        }
 	        this.setState({ going: company[0].attendees.length });
@@ -21895,37 +21988,46 @@
 	  }, {
 	    key: 'makeABooking',
 	    value: function makeABooking() {
-	      var _this3 = this;
-
-	      axios.post('http://localhost:3000/users/580dd7a53d246ba866604ddb/bookings', {
-	        company: this.props.name
-	      }).then(function (data) {
-	        console.log(data.data.message);
-	        if (data.data.message != 'already attending!') {
-	          _this3.setState(function (prev, props) {
-	            return { going: prev.going + 1 };
-	          });
-	        }
-	        _this3.toggleBooking();
-	      }).catch(function (err) {
-	        console.log(err);
-	      });
-	    }
-	  }, {
-	    key: 'unDoABooking',
-	    value: function unDoABooking() {
 	      var _this4 = this;
 
-	      axios.delete('http://localhost:3000/users/580dd7a53d246ba866604ddb/bookings/' + this.props.name).then(function (data) {
+	      var user = JSON.parse(this.state.user);
+	      var userId = user._id;
+	      axios.post('http://localhost:3000/users/' + userId + '/bookings', { company: this.props.name }, { headers: { 'token': this.state.token || localStorage.token } }).then(function (data) {
 	        console.log(data.data.message);
-	        if (data.data.message != 'not attending!') {
+	        console.log(_this4.state.token);
+	        if (data.data.message != 'already attending!') {
 	          _this4.setState(function (prev, props) {
-	            return { going: prev.going - 1 };
+	            return { going: prev.going + 1 };
 	          });
 	        }
 	        _this4.toggleBooking();
 	      }).catch(function (err) {
 	        console.log(err);
+	        if (!_this4.state.token) {
+	          _this4.setState({ error: 'You must login!' });
+	        }
+	      });
+	    }
+	  }, {
+	    key: 'unDoABooking',
+	    value: function unDoABooking() {
+	      var _this5 = this;
+
+	      var user = JSON.parse(this.state.user);
+	      var userId = user._id;
+	      axios.delete('http://localhost:3000/users/' + userId + '/bookings/' + this.props.name, { headers: { 'token': this.state.token || localStorage.token } }).then(function (data) {
+	        console.log(data.data.message);
+	        if (data.data.message != 'not attending!') {
+	          _this5.setState(function (prev, props) {
+	            return { going: prev.going - 1 };
+	          });
+	        }
+	        _this5.toggleBooking();
+	      }).catch(function (err) {
+	        console.log(err);
+	        if (!_this5.state.token) {
+	          _this5.setState({ error: 'You must login!' });
+	        }
 	      });
 	    }
 	  }, {
@@ -21934,6 +22036,7 @@
 	      return _react2.default.createElement(
 	        'li',
 	        { style: _styles2.default.li, className: 'row' },
+	        this.renderError(),
 	        _react2.default.createElement(
 	          'div',
 	          { className: 'col-md-2' },
@@ -21949,9 +22052,12 @@
 	          ),
 	          _react2.default.createElement(
 	            'button',
-	            { onClick: this.state.isBooked ? this.unDoABooking.bind(this) : this.makeABooking.bind(this)
-	            },
-	            this.state.going,
+	            { className: 'btn btn-primary btn-xs', onClick: this.state.isBooked ? this.unDoABooking.bind(this) : this.makeABooking.bind(this) },
+	            _react2.default.createElement(
+	              'span',
+	              { className: 'badge' },
+	              this.state.going
+	            ),
 	            ' Going'
 	          ),
 	          _react2.default.createElement(
@@ -21970,7 +22076,7 @@
 	exports.default = ListItemComponent;
 
 /***/ },
-/* 176 */
+/* 177 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -21994,7 +22100,7 @@
 	exports.default = styles;
 
 /***/ },
-/* 177 */
+/* 178 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -22017,23 +22123,6 @@
 	  input: {
 	    margin: '0',
 	    padding: '0'
-	  }
-	};
-
-	exports.default = styles;
-
-/***/ },
-/* 178 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	var styles = {
-	  input: {
-	    marginRight: '15px'
 	  }
 	};
 

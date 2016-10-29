@@ -9,15 +9,21 @@ class NavBarComponent extends Component {
     this.state = {
       isLoggedIn: false,
       error: null,
-      token: localStorage.token || ''
+      token: localStorage.token || '',
+      user:  localStorage.user  || ''
     }
     this.handleUsernameChange = this.handleUsernameChange.bind(this);
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
     this.handleLogin = this.handleLogin.bind(this);
+    this.handelelogOut = this.handelelogOut.bind(this);
   }
 
   renderError() {
     if(!this.state.error) { return null;}
+
+    window.setTimeout(() => {
+      this.setState({ error: null});
+    }, 2000)
 
     return <div className="alert alert-dismissible alert-danger">
              <button type="button" className="close" data-dismiss="alert">&times;</button>
@@ -32,8 +38,32 @@ class NavBarComponent extends Component {
     this.setState({ password: e.target.value})
   }
 
+  renderNavBarState() {
+
+    if(this.state.token) {
+      let user = JSON.parse(this.state.user)
+      console.log(user);
+      return <form className="navbar-form navbar-right" role="search">
+                <div style={{color: 'white'}} className="form-group">
+                  Welcome, { user.name }
+                </div>
+                <a onClick={ this.handelelogOut } href="/" className="btn btn-link">Logout</a>
+              </form>
+    } else {
+      return <form onSubmit={ this.handleLogin }className="navbar-form navbar-right" role="search">
+                <div className="form-group">
+                  <input style={styles.input} type="text" className="form-control"
+                         placeholder="Username" onChange={this.handleUsernameChange} />
+                  <input style={styles.input} type="password" className="form-control"
+                         placeholder="Password" onChange={this.handlePasswordChange} />
+                </div>
+                <button type="submit" className="btn btn-default">Login</button>
+              </form>
+    }
+  }
+
   _logIn(username, password) {
-    let token;
+    let token, user;
     axios.get('http://localhost:3000/login', {
       auth: {
         username: username,
@@ -42,17 +72,26 @@ class NavBarComponent extends Component {
     })
     .then((response) => {
       token = response.data.token;
+      user  = JSON.stringify(response.data.data);
       if(response.data.status == 'failure') {
         localStorage.removeItem('token');
         this.setState({ error: response.data.message })
       } else {
         localStorage.token = token;
-        this.setState({ token, error: null });
+        localStorage.user  = user;
+        console.log(typeof user);
+        this.setState({ token, user, error: null });
       }
     })
     .catch((err) => {
       console.log(err);
     })
+  }
+
+  handelelogOut(e) {
+    e.preventDefault();
+    localStorage.removeItem('token');
+    this.setState({ token: '' });
   }
 
   handleLogin(e) {
@@ -88,15 +127,7 @@ class NavBarComponent extends Component {
 
             <div className="navbar-collapse collapse" id="bs-example-navbar-collapse-2"
                 aria-expanded="false">
-              <form onSubmit={ this.handleLogin}className="navbar-form navbar-right" role="search">
-                <div className="form-group">
-                  <input style={styles.input} type="text" className="form-control"
-                         placeholder="Username" onChange={this.handleUsernameChange} />
-                  <input style={styles.input} type="password" className="form-control"
-                         placeholder="Password" onChange={this.handlePasswordChange} />
-                </div>
-                <button type="submit" className="btn btn-default">Login</button>
-              </form>
+                { this.renderNavBarState() }
             </div>
           </div>
         </nav>

@@ -14,18 +14,18 @@ module.exports = (userRouter, models) => {
 
 
   userRouter.route('/users/:id')
-    .get((req, res)    => { UserController.getOneUser(req, res); })
-    .put((req, res)    => { UserController.updateUser(req, res); })
-    .delete((req, res) => { UserController.deleteUser(req, res); });
+    .get(jwtAuth, (req, res)    => { UserController.getOneUser(req, res); })
+    .put(jwtAuth, (req, res)    => { UserController.updateUser(req, res); })
+    .delete(jwtAuth, (req, res) => { UserController.deleteUser(req, res); });
 
 
   userRouter.route('/users/:id/bookings')
-    .get((req, res)    => { UserController.getUserBookings(req, res); })
-    .post((req, res)   => { UserController.make_a_booking(req, res); });
+    .get(jwtAuth, (req, res)    => { UserController.getUserBookings(req, res); })
+    .post(jwtAuth, (req, res)   => { UserController.make_a_booking(req, res); });
 
 
   userRouter.route('/users/:id/bookings/:company')
-    .delete((req, res) => { UserController.delete_a_booking(req, res); });
+    .delete(jwtAuth, (req, res) => { UserController.delete_a_booking(req, res); });
 
 
 
