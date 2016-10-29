@@ -6,6 +6,7 @@ const User = models.User;
 let LoginController = {
 
   logIn: function(req, res) {
+    console.log(req.headers);
     const authorizationArray = req.headers.authorization.split(' ');
     const method = authorizationArray[0];
     const base64ed = authorizationArray[1];

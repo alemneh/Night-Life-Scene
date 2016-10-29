@@ -21447,7 +21447,7 @@
 
 	var _NavBarComponent2 = _interopRequireDefault(_NavBarComponent);
 
-	var _SearchListComponent = __webpack_require__(175);
+	var _SearchListComponent = __webpack_require__(174);
 
 	var _SearchListComponent2 = _interopRequireDefault(_SearchListComponent);
 
@@ -21501,7 +21501,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _styles = __webpack_require__(174);
+	var _styles = __webpack_require__(178);
 
 	var _styles2 = _interopRequireDefault(_styles);
 
@@ -21516,63 +21516,161 @@
 	var NavBarComponent = function (_Component) {
 	  _inherits(NavBarComponent, _Component);
 
-	  function NavBarComponent() {
+	  function NavBarComponent(props) {
 	    _classCallCheck(this, NavBarComponent);
 
-	    return _possibleConstructorReturn(this, (NavBarComponent.__proto__ || Object.getPrototypeOf(NavBarComponent)).apply(this, arguments));
+	    var _this = _possibleConstructorReturn(this, (NavBarComponent.__proto__ || Object.getPrototypeOf(NavBarComponent)).call(this, props));
+
+	    _this.state = {
+	      isLoggedIn: false,
+	      error: null,
+	      token: localStorage.token || ''
+	    };
+	    _this.handleUsernameChange = _this.handleUsernameChange.bind(_this);
+	    _this.handlePasswordChange = _this.handlePasswordChange.bind(_this);
+	    _this.handleLogin = _this.handleLogin.bind(_this);
+	    return _this;
 	  }
 
 	  _createClass(NavBarComponent, [{
+	    key: 'renderError',
+	    value: function renderError() {
+	      if (!this.state.error) {
+	        return null;
+	      }
+
+	      return _react2.default.createElement(
+	        'div',
+	        { className: 'alert alert-dismissible alert-danger' },
+	        _react2.default.createElement(
+	          'button',
+	          { type: 'button', className: 'close', 'data-dismiss': 'alert' },
+	          '\xD7'
+	        ),
+	        this.state.error
+	      );
+	    }
+	  }, {
+	    key: 'handleUsernameChange',
+	    value: function handleUsernameChange(e) {
+	      this.setState({ username: e.target.value });
+	    }
+	  }, {
+	    key: 'handlePasswordChange',
+	    value: function handlePasswordChange(e) {
+	      this.setState({ password: e.target.value });
+	    }
+	  }, {
+	    key: '_logIn',
+	    value: function _logIn(username, password) {
+	      var _this2 = this;
+
+	      var token = void 0;
+	      axios.get('http://localhost:3000/login', {
+	        auth: {
+	          username: username,
+	          password: password
+	        }
+	      }).then(function (response) {
+	        token = response.data.token;
+	        if (response.data.status == 'failure') {
+	          localStorage.removeItem('token');
+	          _this2.setState({ error: response.data.message });
+	        } else {
+	          localStorage.token = token;
+	          _this2.setState({ token: token, error: null });
+	        }
+	      }).catch(function (err) {
+	        console.log(err);
+	      });
+	    }
+	  }, {
+	    key: 'handleLogin',
+	    value: function handleLogin(e) {
+	      e.preventDefault();
+	      var username = this.state.username;
+	      var password = this.state.password;
+	      var validateLoginInput = this.validateLoginInput(username, password);
+
+	      if (validateLoginInput) {
+	        this.setState({ error: validateLoginInput });
+	        return;
+	      }
+
+	      this._logIn(username, password);
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      return _react2.default.createElement(
-	        'nav',
-	        { className: 'navbar navbar-inverse' },
+	        'div',
+	        null,
 	        _react2.default.createElement(
-	          'div',
-	          { className: 'container-fluid' },
+	          'nav',
+	          { className: 'navbar navbar-inverse' },
 	          _react2.default.createElement(
 	            'div',
-	            { className: 'navbar-header' },
+	            { className: 'container-fluid' },
 	            _react2.default.createElement(
-	              'button',
-	              { type: 'button', className: 'navbar-toggle collapsed', 'data-toggle': 'collapse', 'data-target': '#bs-example-navbar-collapse-2', 'aria-expanded': 'false' },
-	              _react2.default.createElement(
-	                'span',
-	                { className: 'sr-only' },
-	                'Toggle navigation'
-	              ),
-	              _react2.default.createElement('span', { className: 'icon-bar' }),
-	              _react2.default.createElement('span', { className: 'icon-bar' }),
-	              _react2.default.createElement('span', { className: 'icon-bar' })
-	            ),
-	            _react2.default.createElement(
-	              'a',
-	              { className: 'navbar-brand', href: '#' },
-	              'Bar Hop'
-	            )
-	          ),
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'navbar-collapse collapse', id: 'bs-example-navbar-collapse-2', 'aria-expanded': 'false' },
-	            _react2.default.createElement(
-	              'form',
-	              { className: 'navbar-form navbar-right', role: 'search' },
-	              _react2.default.createElement(
-	                'div',
-	                { className: 'form-group' },
-	                _react2.default.createElement('input', { style: _styles2.default.input, type: 'text', className: 'form-control', placeholder: 'Username' }),
-	                _react2.default.createElement('input', { style: _styles2.default.input, type: 'text', className: 'form-control', placeholder: 'Password' })
-	              ),
+	              'div',
+	              { className: 'navbar-header' },
 	              _react2.default.createElement(
 	                'button',
-	                { type: 'submit', className: 'btn btn-default' },
-	                'Login'
+	                { type: 'button', className: 'navbar-toggle collapsed',
+	                  'data-toggle': 'collapse', 'data-target': '#bs-example-navbar-collapse-2',
+	                  'aria-expanded': 'false' },
+	                _react2.default.createElement(
+	                  'span',
+	                  { className: 'sr-only' },
+	                  'Toggle navigation'
+	                ),
+	                _react2.default.createElement('span', { className: 'icon-bar' }),
+	                _react2.default.createElement('span', { className: 'icon-bar' }),
+	                _react2.default.createElement('span', { className: 'icon-bar' })
+	              ),
+	              _react2.default.createElement(
+	                'a',
+	                { className: 'navbar-brand', href: '#' },
+	                'Bar Hop'
+	              )
+	            ),
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'navbar-collapse collapse', id: 'bs-example-navbar-collapse-2',
+	                'aria-expanded': 'false' },
+	              _react2.default.createElement(
+	                'form',
+	                { onSubmit: this.handleLogin, className: 'navbar-form navbar-right', role: 'search' },
+	                _react2.default.createElement(
+	                  'div',
+	                  { className: 'form-group' },
+	                  _react2.default.createElement('input', { style: _styles2.default.input, type: 'text', className: 'form-control',
+	                    placeholder: 'Username', onChange: this.handleUsernameChange }),
+	                  _react2.default.createElement('input', { style: _styles2.default.input, type: 'password', className: 'form-control',
+	                    placeholder: 'Password', onChange: this.handlePasswordChange })
+	                ),
+	                _react2.default.createElement(
+	                  'button',
+	                  { type: 'submit', className: 'btn btn-default' },
+	                  'Login'
+	                )
 	              )
 	            )
 	          )
-	        )
+	        ),
+	        this.renderError()
 	      );
+	    }
+	  }, {
+	    key: 'validateLoginInput',
+	    value: function validateLoginInput(username, password) {
+	      if (!username) {
+	        return 'Please enter username';
+	      } else if (!password) {
+	        return 'Pleas enter password';
+	      } else {
+	        return null;
+	      }
 	    }
 	  }]);
 
@@ -21583,23 +21681,6 @@
 
 /***/ },
 /* 174 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	var styles = {
-	  input: {
-	    marginRight: '15px'
-	  }
-	};
-
-	exports.default = styles;
-
-/***/ },
-/* 175 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -21616,11 +21697,11 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _ListItemComponent = __webpack_require__(176);
+	var _ListItemComponent = __webpack_require__(175);
 
 	var _ListItemComponent2 = _interopRequireDefault(_ListItemComponent);
 
-	var _styles = __webpack_require__(178);
+	var _styles = __webpack_require__(177);
 
 	var _styles2 = _interopRequireDefault(_styles);
 
@@ -21739,7 +21820,7 @@
 	exports.default = SearchListComponent;
 
 /***/ },
-/* 176 */
+/* 175 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -21754,7 +21835,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _styles = __webpack_require__(177);
+	var _styles = __webpack_require__(176);
 
 	var _styles2 = _interopRequireDefault(_styles);
 
@@ -21889,7 +21970,7 @@
 	exports.default = ListItemComponent;
 
 /***/ },
-/* 177 */
+/* 176 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -21913,7 +21994,7 @@
 	exports.default = styles;
 
 /***/ },
-/* 178 */
+/* 177 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -21936,6 +22017,23 @@
 	  input: {
 	    margin: '0',
 	    padding: '0'
+	  }
+	};
+
+	exports.default = styles;
+
+/***/ },
+/* 178 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	var styles = {
+	  input: {
+	    marginRight: '15px'
 	  }
 	};
 
