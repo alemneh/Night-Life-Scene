@@ -4,7 +4,8 @@ var n = require('nonce')();
 var request = require('request');
 var qs = require('querystring');
 var _ = require('lodash');
-var config = require('../env/yelp_cred.json');
+var env = process.env.NODE_ENV || 'development';
+var config = require('../config/config.json')[env];
 
 /* Function for yelp call
  * ------------------------
