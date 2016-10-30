@@ -5,7 +5,13 @@ var request = require('request');
 var qs = require('querystring');
 var _ = require('lodash');
 var env = process.env.NODE_ENV || 'development';
-var config = require('../config/config.json')[env];
+var config;
+if(env == 'production') {
+  config = require('../config/config.json')[env];
+} else {
+  config = require('../env/yelp_cred.json');
+}
+
 
 /* Function for yelp call
  * ------------------------

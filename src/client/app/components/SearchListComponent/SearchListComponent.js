@@ -30,7 +30,8 @@ class SearchListComponent extends Component {
 
   renderListItems() {
     let businesses = this.state.businesses;
-
+    console.log(businesses);
+    console.log(this.state.businesses);
     if(businesses.length == 0) {
       return (
         <h2>No Results.</h2>
@@ -46,7 +47,7 @@ class SearchListComponent extends Component {
   searchBars() {
     const url = this.props.url;
     axios.post(url + 'yelp-search', {
-      location: this.refs.searchInput.value
+      location: this.refs.searchInput.value || 'seattle'
     })
     .then((data) => {
       let businesses = data.data.businesses;

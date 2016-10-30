@@ -21823,7 +21823,8 @@
 	      var _this3 = this;
 
 	      var businesses = this.state.businesses;
-
+	      console.log(businesses);
+	      console.log(this.state.businesses);
 	      if (businesses.length == 0) {
 	        return _react2.default.createElement(
 	          'h2',
@@ -21844,7 +21845,7 @@
 
 	      var url = this.props.url;
 	      axios.post(url + 'yelp-search', {
-	        location: this.refs.searchInput.value
+	        location: this.refs.searchInput.value || 'seattle'
 	      }).then(function (data) {
 	        var businesses = data.data.businesses;
 	        _this4.setState({ businesses: data.data.businesses });
