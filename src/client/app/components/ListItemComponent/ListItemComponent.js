@@ -11,8 +11,12 @@ class ListItemComponent extends Component {
       isBooked: false,
       token: localStorage.token,
       error: null,
-      user: localStorage.user || ''
+      user: localStorage.user || '',
+      url: this.props.url
     }
+
+    this.unDoABooking = this.unDoABooking.bind(this);
+    this.makeABooking = this.makeABooking.bind(this);
   }
 
   toggleBooking() {
@@ -57,7 +61,7 @@ class ListItemComponent extends Component {
     }
     let user = JSON.parse(this.state.user);
     let userId = user._id;
-    const url = this.props.url;
+    const url = this.props.uri;
     axios.post(url + 'users/' + userId + '/bookings',
     { company: this.props.name },
     { headers: {'token': this.state.token || localStorage.token }})
@@ -83,7 +87,7 @@ class ListItemComponent extends Component {
     }
     let user = JSON.parse(this.state.user);
     let userId = user._id;
-    const url = this.props.url;
+    const url = this.props.uri;
     axios.delete(url + 'users/' + userId + '/bookings/'
           + this.props.name,
     { headers: {'token': this.state.token || localStorage.token }})

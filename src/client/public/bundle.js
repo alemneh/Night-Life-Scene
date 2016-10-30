@@ -21823,8 +21823,6 @@
 	      var _this3 = this;
 
 	      var businesses = this.state.businesses;
-	      console.log(businesses);
-	      console.log(this.state.businesses);
 	      if (businesses.length == 0) {
 	        return _react2.default.createElement(
 	          'h2',
@@ -21833,7 +21831,7 @@
 	        );
 	      } else {
 	        return businesses.map(function (bar, index) {
-	          return _react2.default.createElement(_ListItemComponent2.default, _extends({ url: _this3.props.url }, bar, { key: index,
+	          return _react2.default.createElement(_ListItemComponent2.default, _extends({ uri: _this3.props.url }, bar, { key: index,
 	            bookings: _this3.state.bookings }));
 	        });
 	      }
@@ -21932,8 +21930,12 @@
 	      isBooked: false,
 	      token: localStorage.token,
 	      error: null,
-	      user: localStorage.user || ''
+	      user: localStorage.user || '',
+	      url: _this.props.url
 	    };
+
+	    _this.unDoABooking = _this.unDoABooking.bind(_this);
+	    _this.makeABooking = _this.makeABooking.bind(_this);
 	    return _this;
 	  }
 
@@ -21999,7 +22001,7 @@
 	      }
 	      var user = JSON.parse(this.state.user);
 	      var userId = user._id;
-	      var url = this.props.url;
+	      var url = this.props.uri;
 	      axios.post(url + 'users/' + userId + '/bookings', { company: this.props.name }, { headers: { 'token': this.state.token || localStorage.token } }).then(function (data) {
 	        console.log(data.data.message);
 	        console.log(_this4.state.token);
@@ -22024,7 +22026,7 @@
 	      }
 	      var user = JSON.parse(this.state.user);
 	      var userId = user._id;
-	      var url = this.props.url;
+	      var url = this.props.uri;
 	      axios.delete(url + 'users/' + userId + '/bookings/' + this.props.name, { headers: { 'token': this.state.token || localStorage.token } }).then(function (data) {
 	        console.log(data.data.message);
 	        if (data.data.message != 'not attending!') {

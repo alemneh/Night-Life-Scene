@@ -30,15 +30,13 @@ class SearchListComponent extends Component {
 
   renderListItems() {
     let businesses = this.state.businesses;
-    console.log(businesses);
-    console.log(this.state.businesses);
     if(businesses.length == 0) {
       return (
         <h2>No Results.</h2>
       )
     } else {
       return businesses.map((bar, index) => {
-        return <ListItemComponent url={this.props.url} {...bar} key={index}
+        return <ListItemComponent uri={this.props.url} {...bar} key={index}
                   bookings={this.state.bookings} />
       })
     }
