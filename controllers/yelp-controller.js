@@ -36,8 +36,8 @@ module.exports = (set_parameters, callback) => {
 
   /* We set the require parameters here */
   var required_parameters = {
-    oauth_consumer_key : config.CONSUMER_KEY,
-    oauth_token : config.TOKEN,
+    oauth_consumer_key : process.env[config.CONSUMER_KEY] || config.CONSUMER_KEY,
+    oauth_token : process.env[config.TOKEN] || config.TOKEN,
     oauth_nonce : n(),
     oauth_timestamp : n().toString().substr(0,10),
     oauth_signature_method : 'HMAC-SHA1',
@@ -48,8 +48,8 @@ module.exports = (set_parameters, callback) => {
   var parameters = _.assign(default_parameters, set_parameters, required_parameters);
 
   /* We set our secrets here */
-  var consumerSecret = config.CONSUMER_SECRET;
-  var tokenSecret = config.TOKEN_SECRET;
+  var consumerSecret = process.env[config.CONSUMER_SECRET] || config.CONSUMER_SECRET;
+  var tokenSecret = process.env[config.TOKEN_SECRET] || config.TOKEN_SECRET;
 
   /* Then we call Yelp's Oauth 1.0a server, and it returns a signature */
   /* Note: This signature is only good for 300 seconds after the oauth_timestamp */
