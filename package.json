@@ -27,6 +27,8 @@
     "webpack": "^1.13.2"
   },
   "devDependencies": {
-    "babel-core": "^6.17.0"
+    "babel-core": "^6.17.0",
+    "webpack": "^1.13.3",
+    "webpack-dev-server": "^1.16.2"
   }
 }
