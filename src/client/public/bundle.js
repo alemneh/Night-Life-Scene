@@ -21995,7 +21995,7 @@
 	    value: function makeABooking() {
 	      var _this4 = this;
 
-	      if (!this.state.token) {
+	      if (!localStorage.token) {
 	        this.setState({ error: 'You must login!' });
 	        return;
 	      }
@@ -22020,7 +22020,7 @@
 	    value: function unDoABooking() {
 	      var _this5 = this;
 
-	      if (!this.state.token) {
+	      if (!localStorage.token) {
 	        this.setState({ error: 'You must login!' });
 	        return;
 	      }

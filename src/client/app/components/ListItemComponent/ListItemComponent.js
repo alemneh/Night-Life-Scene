@@ -55,7 +55,7 @@ class ListItemComponent extends Component {
   }
 
   makeABooking() {
-    if(!this.state.token) {
+    if(!localStorage.token) {
       this.setState({ error: 'You must login!'});
       return;
     }
@@ -81,7 +81,7 @@ class ListItemComponent extends Component {
   }
 
   unDoABooking() {
-    if(!this.state.token) {
+    if(!localStorage.token) {
       this.setState({ error: 'You must login!'});
       return;
     }
