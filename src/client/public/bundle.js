@@ -21978,8 +21978,6 @@
 	    value: function howManyAttendees() {
 	      var _this3 = this;
 
-	      var user = JSON.parse(this.state.user);
-	      var userId = user._id;
 	      var bookings = this.props.bookings;
 	      var company = bookings.filter(function (booking) {
 	        return booking.company == _this3.props.name;
@@ -21987,9 +21985,6 @@
 	      if (company.length == 0) {
 	        return;
 	      } else {
-	        if (company[0].attendees.indexOf(userId) != -1) {
-	          this.toggleBooking();
-	        }
 	        this.setState({ going: company[0].attendees.length });
 	      }
 	    }
@@ -21998,6 +21993,10 @@
 	    value: function makeABooking() {
 	      var _this4 = this;
 
+	      if (!this.state.token) {
+	        this.setState({ error: 'You must login!' });
+	        return;
+	      }
 	      var user = JSON.parse(this.state.user);
 	      var userId = user._id;
 	      var url = this.props.url;
@@ -22012,9 +22011,6 @@
 	        _this4.toggleBooking();
 	      }).catch(function (err) {
 	        console.log(err);
-	        if (!_this4.state.token) {
-	          _this4.setState({ error: 'You must login!' });
-	        }
 	      });
 	    }
 	  }, {
@@ -22022,6 +22018,10 @@
 	    value: function unDoABooking() {
 	      var _this5 = this;
 
+	      if (!this.state.token) {
+	        this.setState({ error: 'You must login!' });
+	        return;
+	      }
 	      var user = JSON.parse(this.state.user);
 	      var userId = user._id;
 	      var url = this.props.url;
@@ -22035,9 +22035,6 @@
 	        _this5.toggleBooking();
 	      }).catch(function (err) {
 	        console.log(err);
-	        if (!_this5.state.token) {
-	          _this5.setState({ error: 'You must login!' });
-	        }
 	      });
 	    }
 	  }, {

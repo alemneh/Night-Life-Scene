@@ -39,8 +39,6 @@ class ListItemComponent extends Component {
   }
 
   howManyAttendees() {
-    let user = JSON.parse(this.state.user);
-    let userId = user._id;
     let bookings = this.props.bookings;
     let company  = bookings.filter((booking) => {
       return booking.company == this.props.name;
@@ -48,14 +46,15 @@ class ListItemComponent extends Component {
     if(company.length == 0) {
       return;
     } else {
-      if(company[0].attendees.indexOf(userId) != -1) {
-        this.toggleBooking();
-      }
-      this.setState({going: company[0].attendees.length});
+        this.setState({going: company[0].attendees.length});
     }
   }
 
   makeABooking() {
+    if(!this.state.token) {
+      this.setState({ error: 'You must login!'});
+      return;
+    }
     let user = JSON.parse(this.state.user);
     let userId = user._id;
     const url = this.props.url;
@@ -74,13 +73,14 @@ class ListItemComponent extends Component {
     })
     .catch((err) => {
       console.log(err);
-      if(!this.state.token) {
-        this.setState({ error: 'You must login!'});
-      }
     })
   }
 
   unDoABooking() {
+    if(!this.state.token) {
+      this.setState({ error: 'You must login!'});
+      return;
+    }
     let user = JSON.parse(this.state.user);
     let userId = user._id;
     const url = this.props.url;
@@ -98,9 +98,6 @@ class ListItemComponent extends Component {
     })
     .catch((err) => {
       console.log(err);
-      if(!this.state.token) {
-        this.setState({ error: 'You must login!'});
-      }
     })
   }
 
