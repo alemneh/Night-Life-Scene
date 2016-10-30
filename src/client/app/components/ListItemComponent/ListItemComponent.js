@@ -58,7 +58,8 @@ class ListItemComponent extends Component {
   makeABooking() {
     let user = JSON.parse(this.state.user);
     let userId = user._id;
-    axios.post('http://localhost:3000/users/'+ userId +'/bookings',
+    const url = this.props.url;
+    axios.post(url + 'users/' + userId + '/bookings',
     { company: this.props.name },
     { headers: {'token': this.state.token || localStorage.token }})
     .then((data) => {
@@ -82,7 +83,8 @@ class ListItemComponent extends Component {
   unDoABooking() {
     let user = JSON.parse(this.state.user);
     let userId = user._id;
-    axios.delete('http://localhost:3000/users/'+ userId +'/bookings/'
+    const url = this.props.url;
+    axios.delete(url + 'users/' + userId + '/bookings/'
           + this.props.name,
     { headers: {'token': this.state.token || localStorage.token }})
     .then((data) => {

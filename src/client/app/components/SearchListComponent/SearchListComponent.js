@@ -19,7 +19,7 @@ class SearchListComponent extends Component {
   }
 
   getBizsWithBookings() {
-    axios.get('http://localhost:3000/bookings')
+    axios.get('bookings')
     .then((data) => {
       this.setState({bookings: data.data.bookings});
     })
@@ -30,21 +30,22 @@ class SearchListComponent extends Component {
 
   renderListItems() {
     let businesses = this.state.businesses;
-    
+
     if(businesses.length == 0) {
       return (
         <h2>No Results.</h2>
       )
     } else {
       return businesses.map((bar, index) => {
-        return <ListItemComponent {...bar} key={index}
+        return <ListItemComponent url={this.props.url} {...bar} key={index}
                   bookings={this.state.bookings} />
       })
     }
   }
 
   searchBars() {
-    axios.post('http://localhost:3000/yelp-search', {
+    const url = this.props.url;
+    axios.post(url + 'yelp-search', {
       location: this.refs.searchInput.value
     })
     .then((data) => {

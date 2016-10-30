@@ -4,11 +4,17 @@ import SearchListComponent from './components/SearchListComponent/SearchListComp
 
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      url: 'https://bar-hop-bar.herokuapp.com/'
+    }
+  }
   render() {
     return (
       <div className="container">
-        <NavBarComponent />
-        <SearchListComponent />
+        <NavBarComponent url={this.state.url} />
+        <SearchListComponent url={this.state.url}/>
       </div>
     );
   }

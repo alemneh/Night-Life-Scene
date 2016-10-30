@@ -64,7 +64,8 @@ class NavBarComponent extends Component {
 
   _logIn(username, password) {
     let token, user;
-    axios.get('http://localhost:3000/login', {
+    const url = this.props.url;
+    axios.get(url + 'login', {
       auth: {
         username: username,
         password: password

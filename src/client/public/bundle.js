@@ -21462,10 +21462,15 @@
 	var App = function (_Component) {
 	  _inherits(App, _Component);
 
-	  function App() {
+	  function App(props) {
 	    _classCallCheck(this, App);
 
-	    return _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).apply(this, arguments));
+	    var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
+
+	    _this.state = {
+	      url: 'https://bar-hop-bar.herokuapp.com/'
+	    };
+	    return _this;
 	  }
 
 	  _createClass(App, [{
@@ -21474,8 +21479,8 @@
 	      return _react2.default.createElement(
 	        'div',
 	        { className: 'container' },
-	        _react2.default.createElement(_NavBarComponent2.default, null),
-	        _react2.default.createElement(_SearchListComponent2.default, null)
+	        _react2.default.createElement(_NavBarComponent2.default, { url: this.state.url }),
+	        _react2.default.createElement(_SearchListComponent2.default, { url: this.state.url })
 	      );
 	    }
 	  }]);
@@ -21619,7 +21624,8 @@
 
 	      var token = void 0,
 	          user = void 0;
-	      axios.get('http://localhost:3000/login', {
+	      var url = this.props.url;
+	      axios.get(url + 'login', {
 	        auth: {
 	          username: username,
 	          password: password
@@ -21805,7 +21811,7 @@
 	    value: function getBizsWithBookings() {
 	      var _this2 = this;
 
-	      axios.get('http://localhost:3000/bookings').then(function (data) {
+	      axios.get('bookings').then(function (data) {
 	        _this2.setState({ bookings: data.data.bookings });
 	      }).catch(function (err) {
 	        console.log(err);
@@ -21826,7 +21832,7 @@
 	        );
 	      } else {
 	        return businesses.map(function (bar, index) {
-	          return _react2.default.createElement(_ListItemComponent2.default, _extends({}, bar, { key: index,
+	          return _react2.default.createElement(_ListItemComponent2.default, _extends({ url: _this3.props.url }, bar, { key: index,
 	            bookings: _this3.state.bookings }));
 	        });
 	      }
@@ -21836,7 +21842,8 @@
 	    value: function searchBars() {
 	      var _this4 = this;
 
-	      axios.post('http://localhost:3000/yelp-search', {
+	      var url = this.props.url;
+	      axios.post(url + 'yelp-search', {
 	        location: this.refs.searchInput.value
 	      }).then(function (data) {
 	        var businesses = data.data.businesses;
@@ -21992,7 +21999,8 @@
 
 	      var user = JSON.parse(this.state.user);
 	      var userId = user._id;
-	      axios.post('http://localhost:3000/users/' + userId + '/bookings', { company: this.props.name }, { headers: { 'token': this.state.token || localStorage.token } }).then(function (data) {
+	      var url = this.props.url;
+	      axios.post(url + 'users/' + userId + '/bookings', { company: this.props.name }, { headers: { 'token': this.state.token || localStorage.token } }).then(function (data) {
 	        console.log(data.data.message);
 	        console.log(_this4.state.token);
 	        if (data.data.message != 'already attending!') {
@@ -22015,7 +22023,8 @@
 
 	      var user = JSON.parse(this.state.user);
 	      var userId = user._id;
-	      axios.delete('http://localhost:3000/users/' + userId + '/bookings/' + this.props.name, { headers: { 'token': this.state.token || localStorage.token } }).then(function (data) {
+	      var url = this.props.url;
+	      axios.delete(url + 'users/' + userId + '/bookings/' + this.props.name, { headers: { 'token': this.state.token || localStorage.token } }).then(function (data) {
 	        console.log(data.data.message);
 	        if (data.data.message != 'not attending!') {
 	          _this5.setState(function (prev, props) {

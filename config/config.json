@@ -11,6 +11,6 @@
   },
   "production": {
     "database": "MONGO_URI",
-    "host": "https://poll-city.herokuapp.com"
+    "host": "https://bar-hop-bar.herokuapp.com"
   }
 }
