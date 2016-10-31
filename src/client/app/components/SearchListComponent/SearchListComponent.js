@@ -15,11 +15,14 @@ class SearchListComponent extends Component {
   }
 
   componentDidMount() {
+    console.log(this.props.url);
     this.getBizsWithBookings();
+
   }
 
   getBizsWithBookings() {
-    axios.get('bookings')
+    const url = this.props.url;
+    axios.get(url +'bookings')
     .then((data) => {
       this.setState({bookings: data.data.bookings});
     })

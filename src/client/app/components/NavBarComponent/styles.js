@@ -1,6 +1,6 @@
 const styles = {
   input: {
-    marginRight: '15px'
+    margin: '5px 15px'
   }
 };
 

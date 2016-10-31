@@ -14,6 +14,11 @@ class App extends Component {
     return (
       <div className="container">
         <NavBarComponent url={this.state.url} />
+        <div className="text-center">
+          <h1>Plans tonight?</h1>
+          <p>Bar hop with a plan tonight and RSVP ahead of time!</p>
+          <p>Remember: don't drink and drive.</p>
+        </div>
         <SearchListComponent url={this.state.url}/>
       </div>
     );

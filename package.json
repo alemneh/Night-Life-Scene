@@ -4,7 +4,10 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha --compilers js:babel-register --require ./test/test_helper.js --recursive",
+    "test:watch": "npm test -- --watch",
+    "dev": "webpack-dev-server --port 3000 --devtool eval --progress --colors --hot --content-base src/client",
+    "build": "webpack"
   },
   "author": "",
   "license": "ISC",
@@ -28,6 +31,10 @@
   },
   "devDependencies": {
     "babel-core": "^6.17.0",
+    "babel-register": "^6.18.0",
+    "chai": "^3.5.0",
+    "mocha": "^3.1.2",
+    "sinon": "^1.17.6",
     "webpack": "^1.13.3",
     "webpack-dev-server": "^1.16.2"
   }
