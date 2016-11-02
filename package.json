@@ -4,7 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "mocha --compilers js:babel-register --require ./test/test_helper.js --recursive",
+    "test": "mocha -w test/helpers/browser.js test/*.spec.js",
     "test:watch": "npm test -- --watch",
     "dev": "webpack-dev-server --port 3000 --devtool eval --progress --colors --hot --content-base src/client",
     "build": "webpack"
@@ -33,7 +33,10 @@
     "babel-core": "^6.17.0",
     "babel-register": "^6.18.0",
     "chai": "^3.5.0",
+    "enzyme": "^2.5.1",
+    "jsdom": "^9.8.3",
     "mocha": "^3.1.2",
+    "react-addons-test-utils": "^15.3.2",
     "sinon": "^1.17.6",
     "webpack": "^1.13.3",
     "webpack-dev-server": "^1.16.2"

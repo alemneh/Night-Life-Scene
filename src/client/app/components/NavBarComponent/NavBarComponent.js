@@ -9,13 +9,20 @@ class NavBarComponent extends Component {
     this.state = {
       isLoggedIn: false,
       error: null,
-      token: localStorage.token || '',
-      user:  localStorage.user  || ''
+      token: '',
+      user:  ''
     }
     this.handleUsernameChange = this.handleUsernameChange.bind(this);
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
     this.handleLogin = this.handleLogin.bind(this);
     this.handelelogOut = this.handelelogOut.bind(this);
+  }
+
+  componentDidMount() {
+    this.setState({
+      token: localStorage.token || '',
+      user:  localStorage.user  || ''
+    });
   }
 
   renderError() {

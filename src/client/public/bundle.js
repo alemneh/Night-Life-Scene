@@ -21557,8 +21557,8 @@
 	    _this.state = {
 	      isLoggedIn: false,
 	      error: null,
-	      token: localStorage.token || '',
-	      user: localStorage.user || ''
+	      token: '',
+	      user: ''
 	    };
 	    _this.handleUsernameChange = _this.handleUsernameChange.bind(_this);
 	    _this.handlePasswordChange = _this.handlePasswordChange.bind(_this);
@@ -21568,6 +21568,14 @@
 	  }
 
 	  _createClass(NavBarComponent, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      this.setState({
+	        token: localStorage.token || '',
+	        user: localStorage.user || ''
+	      });
+	    }
+	  }, {
 	    key: 'renderError',
 	    value: function renderError() {
 	      var _this2 = this;
