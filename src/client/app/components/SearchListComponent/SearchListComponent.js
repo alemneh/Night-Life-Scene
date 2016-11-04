@@ -15,14 +15,12 @@ class SearchListComponent extends Component {
   }
 
   componentDidMount() {
-    console.log(this.props.url);
     this.getBizsWithBookings();
 
   }
 
   getBizsWithBookings() {
-    const url = this.props.url;
-    axios.get(url +'bookings')
+    axios.get(process.env.URL +'/bookings')
     .then((data) => {
       this.setState({bookings: data.data.bookings});
     })
@@ -39,15 +37,15 @@ class SearchListComponent extends Component {
       )
     } else {
       return businesses.map((bar, index) => {
-        return <ListItemComponent uri={this.props.url} {...bar} key={index}
+        return <ListItemComponent {...bar} key={index}
                   bookings={this.state.bookings} />
       })
     }
   }
 
-  searchBars() {
-    const url = this.props.url;
-    axios.post(url + 'yelp-search', {
+  searchBars(e) {
+    e.preventDefault();
+    axios.post(process.env.URL + '/yelp-search', {
       location: this.refs.searchInput.value || 'seattle'
     })
     .then((data) => {
@@ -63,14 +61,16 @@ class SearchListComponent extends Component {
   render() {
     return (
       <div>
-        <div className="row">
-          <div className="col-md-10 col-sm-10">
-            <input ref="searchInput" style={styles.input}  className="form-control input-lg" type="text" placeholder="search your city..." />
+        <form>
+          <div className="row">
+            <div className="col-md-10 ">
+              <input ref="searchInput" style={styles.input}  className="form-control input-lg" type="text" placeholder="search your city..." />
+            </div>
+            <div className="col-md-2 mobileBtn">
+              <button id="searchBtn" style={styles.button} onClick={this.searchBars.bind(this)}>Search</button>
+            </div>
           </div>
-          <div className="col-md-2 col-sm-2">
-            <button style={styles.button} onClick={this.searchBars.bind(this)}>Search</button>
-          </div>
-        </div>
+        </form>
         <ul style={styles.ul}>
           {this.renderListItems()}
         </ul>

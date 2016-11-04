@@ -9,15 +9,13 @@ class ListItemComponent extends Component {
     this.state = {
       going: 0,
       isBooked: false,
-      token: localStorage.token,
       error: null,
-      user: localStorage.user || '',
-      url: this.props.url
     }
 
     this.unDoABooking = this.unDoABooking.bind(this);
     this.makeABooking = this.makeABooking.bind(this);
   }
+
 
   toggleBooking() {
     this.setState((prev, props) => {
@@ -59,15 +57,12 @@ class ListItemComponent extends Component {
       this.setState({ error: 'You must login!'});
       return;
     }
-    let user = JSON.parse(this.state.user);
+    let user = JSON.parse(localStorage.user);
     let userId = user._id;
-    const url = this.props.uri;
-    axios.post(url + 'users/' + userId + '/bookings',
+    axios.post(process.env.URL + '/users/' + userId + '/bookings',
     { company: this.props.name },
-    { headers: {'token': this.state.token || localStorage.token }})
+    { headers: {'token': localStorage.token }})
     .then((data) => {
-      console.log(data.data.message);
-      console.log(this.state.token);
       if(data.data.message != 'already attending!') {
         this.setState((prev, props) => {
           return { going: prev.going + 1 };
@@ -85,14 +80,12 @@ class ListItemComponent extends Component {
       this.setState({ error: 'You must login!'});
       return;
     }
-    let user = JSON.parse(this.state.user);
+    let user = JSON.parse(localStorage.user);
     let userId = user._id;
-    const url = this.props.uri;
-    axios.delete(url + 'users/' + userId + '/bookings/'
+    axios.delete(process.env.URL + '/users/' + userId + '/bookings/'
           + this.props.name,
-    { headers: {'token': this.state.token || localStorage.token }})
+    { headers: {'token': localStorage.token }})
     .then((data) => {
-      console.log(data.data.message);
       if(data.data.message != 'not attending!') {
         this.setState((prev, props) => {
           return { going: prev.going - 1}
@@ -114,7 +107,7 @@ class ListItemComponent extends Component {
         </div>
         <div className="col-md-10">
           <h3>{this.props.name}</h3>
-          <button className="btn btn-primary btn-xs" onClick={ this.state.isBooked ? this.unDoABooking.bind(this) :
+          <button className="btn btn-primary btn-xs mobileBtn" onClick={ this.state.isBooked ? this.unDoABooking.bind(this) :
                             this.makeABooking.bind(this)  }>
           <span className="badge">{ this.state.going }</span> Going</button>
           <p>{this.props.snippet_text}</p>

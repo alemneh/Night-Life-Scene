@@ -10,12 +10,14 @@ class NavBarComponent extends Component {
       isLoggedIn: false,
       error: null,
       token: '',
-      user:  ''
+      user:  '',
+      signup: false
     }
     this.handleUsernameChange = this.handleUsernameChange.bind(this);
     this.handlePasswordChange = this.handlePasswordChange.bind(this);
     this.handleLogin = this.handleLogin.bind(this);
     this.handelelogOut = this.handelelogOut.bind(this);
+    this.handleSignUp = this.handleSignUp.bind(this);
   }
 
   componentDidMount() {
@@ -49,7 +51,6 @@ class NavBarComponent extends Component {
 
     if(this.state.token) {
       let user = JSON.parse(this.state.user)
-      console.log(user);
       return <form className="navbar-form navbar-right" role="search">
                 <div style={{color: 'white'}} className="form-group">
                   Welcome, { user.name }
@@ -64,15 +65,15 @@ class NavBarComponent extends Component {
                   <input style={styles.input} type="password" className="form-control"
                          placeholder="Password" onChange={this.handlePasswordChange} />
                 </div>
-                <button type="submit" className="btn btn-default">Login</button>
+                <button style={styles.button} type="submit" className="btn btn-default">Login</button>
+                <button style={styles.button} onClick={ this.handleSignUp } className="btn btn-info">Sign Up</button>
               </form>
     }
   }
 
   _logIn(username, password) {
     let token, user;
-    const url = this.props.url;
-    axios.get(url + 'login', {
+    axios.get(process.env.URL + '/login', {
       auth: {
         username: username,
         password: password
@@ -87,7 +88,6 @@ class NavBarComponent extends Component {
       } else {
         localStorage.token = token;
         localStorage.user  = user;
-        console.log(typeof user);
         this.setState({ token, user, error: null });
       }
     })
@@ -99,7 +99,42 @@ class NavBarComponent extends Component {
   handelelogOut(e) {
     e.preventDefault();
     localStorage.removeItem('token');
-    this.setState({ token: '' });
+    this.setState({
+      token: '',
+      user: '',
+      username: '',
+      password: ''
+    });
+  }
+
+
+  handleSignUp(e) {
+    e.preventDefault()
+    const username = this.state.username;
+    const password = this.state.password;
+    const validateLoginInput = this.validateLoginInput(username, password);
+
+    if(validateLoginInput) {
+      this.setState({ error: validateLoginInput})
+      return;
+    }
+
+    axios.post(process.env.URL + '/signup', {
+      name: username,
+      password: password
+    })
+    .then((response) => {
+      if(response.data.status == 'failure') {
+        this.setState({ error: response.data.message })
+      } else {
+        this.setState({
+          error: 'You signed up now sign in!'
+        });
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+    })
   }
 
   handleLogin(e) {
@@ -139,7 +174,7 @@ class NavBarComponent extends Component {
             </div>
           </div>
         </nav>
-        {this.renderError()}
+        { this.renderError() }
       </div>
     );
   }

@@ -20,7 +20,7 @@ let UserController = {
           });
         });
       } else {
-        res.status(401).json({error: 'Username taken!'});
+        res.json({status: 'failure', message: 'Username taken!'});
       }
     });
   },

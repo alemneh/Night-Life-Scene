@@ -17,7 +17,7 @@ describe('<NavBarComponent />', () => {
 
   it('should have input for username and password', () => {
     expect(wrapper.find('input')).to.have.length(2);
-  })
+  });
 
   it('should have inital state of isLoggedIn', () => {
     expect(wrapper.state().isLoggedIn).to.equal(false);
