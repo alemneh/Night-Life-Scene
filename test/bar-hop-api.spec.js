@@ -15,16 +15,6 @@ mongoose.Promise = global.Promise;
 
 describe('Restful API', function() {
 
-  // beforeEach(function(done) {
-  //   var newUser = new User({name: 'tim', password: 'password'});
-  //   newUser.placesAttending.push(userId);
-  //   newUser.save((err, user) => {
-  //     if(err) throw err;
-  //     userId = user._id;
-  //     done();
-  //   });
-  // });
-
   after(function(done) {
 
     mongoose.connection.db.dropDatabase(function() {
