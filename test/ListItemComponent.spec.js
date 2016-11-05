@@ -35,8 +35,4 @@ describe('<ListItemComponent />', () => {
     expect(wrapper.state().error).to.equal(null);
   });
 
-  it('should have inital user state', () => {
-    expect(wrapper.state().user).to.equal(null);
-  });
-  
 });
