@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import NavBarComponent from './components/NavBarComponent/NavBarComponent';
 import SearchListComponent from './components/SearchListComponent/SearchListComponent';
+import Footer from './components/FooterComponent/Footer';
 
 
 class App extends Component {
@@ -14,6 +15,7 @@ class App extends Component {
           <p>Remember: don't drink and drive.</p>
         </div>
         <SearchListComponent />
+        <Footer />
       </div>
     );
   }

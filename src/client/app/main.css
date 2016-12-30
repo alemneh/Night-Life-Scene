@@ -9,6 +9,16 @@ div#spill.text-center {
 
 @media only screen and (max-width: 765px) {
   .mobileBtn {
-    margin: 10px 0; 
+    margin: 10px 0;
   }
+}
+
+
+footer div a {
+  text-decoration: none;
+
+}
+
+i.fa {
+  font-size: -webkit-xxx-large;
 }
